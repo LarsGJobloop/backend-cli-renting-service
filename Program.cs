@@ -1,5 +1,7 @@
 ﻿Console.WriteLine("Starting Renting Service");
 
+RentingService rentingService = new RentingService();
+
 while (true)
 {
   string? input = Console.ReadLine();
@@ -11,7 +13,7 @@ while (true)
   switch (input)
   {
     case "list":
-      Console.WriteLine("Listing out books");
+      rentingService.ListAllBooks();
       break;
     case "borrow":
       Console.WriteLine("Borrowing book");
