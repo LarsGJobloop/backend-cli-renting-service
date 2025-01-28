@@ -13,7 +13,11 @@ while (true)
   switch (input)
   {
     case "list":
-      rentingService.ListAllBooks();
+      Dictionary<Book, int> availableBooks = rentingService.ListAllBooks();
+      foreach (var bookEntry in availableBooks)
+      {
+        Console.WriteLine(bookEntry.Key.Title);
+      }
       break;
     case "borrow":
       Console.WriteLine("Borrowing book");
