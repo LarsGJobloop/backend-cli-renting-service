@@ -58,6 +58,11 @@ class RentingService
     // Returnere kvitteringen
     return reciept;
   }
+
+  public ReturnReciept ReturnBook(string title)
+  {
+    throw new NotImplementedException();
+  }
 }
 
 class Book
