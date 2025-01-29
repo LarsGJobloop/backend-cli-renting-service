@@ -24,6 +24,40 @@ class RentingService
   {
     return bookInventory;
   }
+
+  public BorrowReciept? BorrowBook(string title)
+  {
+    // Sjekke om vi har boken med tittelen
+    var inventoryEntry = bookInventory
+      .Where(entry => entry.Key.Title == title) // Finne alle element som matcher
+      .FirstOrDefault(); // Ta første elementet
+    Book book = inventoryEntry.Key;
+    int inventoryAmount = inventoryEntry.Value;
+
+    if (book == null)
+    {
+      return null;
+    }
+
+    // Sjekke om vi har minste ett eksemplar tilgjengelig
+    int borrowedAmount = currentlyBorrowed[book];
+    bool isAvailable = inventoryAmount - borrowedAmount >= 1;
+
+    // Hvis ikke return ingenting (null)
+    if (!isAvailable)
+    {
+      return null;
+    }
+
+    // Hvis vi har et eksemplar tilgjengelig
+    // Lage en ny kvittering
+    BorrowReciept reciept = new BorrowReciept(book.Title);
+    // Oppdatere antall utlånte eksemplarer
+    // currentlyBorrowed[book] = currentlyBorrowed[book] + 1;
+    currentlyBorrowed[book]++;
+    // Returnere kvitteringen
+    return reciept;
+  }
 }
 
 class Book
@@ -40,7 +74,16 @@ class Book
 
 class BorrowReciept
 {
+  public DateTime BorrowingDate;
+  public DateTime DueDate;
+  public String BookTitle;
 
+  public BorrowReciept(string bookTitle)
+  {
+    BookTitle = bookTitle;
+    BorrowingDate = DateTime.Today;
+    DueDate = DateTime.Today.AddDays(30);
+  }
 }
 
 class ReturnReciept
