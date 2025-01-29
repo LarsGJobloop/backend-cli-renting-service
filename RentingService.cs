@@ -5,11 +5,19 @@ class RentingService
 
   public RentingService()
   {
-    bookInventory = new Dictionary<Book, int>{
-      { new Book("Martian", "Jim"), 10 },
-      { new Book("Foundation", "Jack"), 30 },
-    };
+    // Lage ett sett med bøker
+    Book martian = new Book("Martian", "Jim");
+    Book foundation = new Book("Foundation", "Jack");
+
+    // Opprette data strukturen
+    bookInventory = new Dictionary<Book, int>();
     currentlyBorrowed = new Dictionary<Book, int>();
+
+    // Legg til bøker med antall
+    bookInventory.Add(martian, 10);
+    currentlyBorrowed.Add(martian, 0);
+    bookInventory.Add(foundation, 2);
+    currentlyBorrowed.Add(foundation, 0);
   }
 
   public Dictionary<Book, int> ListAllBooks()
